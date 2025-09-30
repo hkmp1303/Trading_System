@@ -11,22 +11,28 @@ using System.Collections.Generic;
 // deny trade requests
 // browse completed requests
 
+// TODO state change switch case in main loop
+
 // counter offers?
 // value metrics?
 // multiple items per trade?
 
 // Instantiate dictionary of users
-Dictionary<string, IUser> users = new Dictionary<string, IUser>();
+Dictionary<string, IUser> users = User.importUsersFromFile("users.csv");
+if (users.Count == 0)
+{
+    users = new Dictionary<string, IUser>();
+}
 
 IUser? active_user = null;
 
 bool running = true;
 
-while (running)
+while (running) // Main loop
 {
     Console.Clear();
 
-    if (active_user == null)
+    if (active_user == null) // login status, not logged in
     {
         Console.Clear();
         Console.WriteLine("Username: ");
@@ -34,7 +40,7 @@ while (running)
 
         Console.Clear();
 
-        if (users.ContainsKey(username))
+        if (users.ContainsKey(username)) // check registration status
         {
             System.Console.WriteLine($"Welcome back {username}!"); // string interpolation
             string userPassword = Console.ReadLine();
@@ -45,8 +51,6 @@ while (running)
             System.Console.ReadLine();
         }
             Console.Clear();
-        
-
     }
     else
     {
