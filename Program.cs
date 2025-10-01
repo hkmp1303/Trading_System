@@ -1,21 +1,23 @@
 ﻿using App;
 using System.Collections.Generic;
+using System.Runtime.Intrinsics.Arm;
+/*
+self registration, by user
+log in
+log out
+upload info/description of items
+browse other users items
+request trade
+accept trade requests
+deny trade requests
+browse completed requests
 
-// self registration, by user
-// log in 
-// log out
-// upload info/description of items
-// browse other users items
-// request trade
-// accept trade requests
-// deny trade requests
-// browse completed requests
+TODO state change switch case in main loop
 
-// TODO state change switch case in main loop
-
-// counter offers?
-// value metrics?
-// multiple items per trade?
+counter offers?
+value metrics?
+multiple items per trade?
+*/
 
 // Instantiate dictionary of users
 Dictionary<string, IUser> users = User.importUsersFromFile("users.csv");
@@ -27,43 +29,103 @@ if (users.Count == 0)
 IUser? active_user = null;
 
 bool running = true;
+Program_State state = Program_State.LOGGING_IN;
+// intialize member variables
+string username = "invalid username";
 
+Console.Clear();
 while (running) // Main loop
 {
-    Console.Clear();
+    //Console.Clear();
 
-    if (active_user == null) // login status, not logged in
+    switch (state) // state design, object behavior depends on state
     {
-        Console.Clear();
-        Console.WriteLine("Username: ");
-        string username = Console.ReadLine();
+        // login status, not logged in
+        case Program_State.LOGGING_IN:
+            //Console.Clear();
+            Console.Write("Username: ");
+            username = Console.ReadLine() ?? ""; // null coalesce, produces a string if null
 
-        Console.Clear();
-
-        if (users.ContainsKey(username)) // check registration status
-        {
-            System.Console.WriteLine($"Welcome back {username}!"); // string interpolation
-            string userPassword = Console.ReadLine();
-        }
-        else
-        {
-            Console.WriteLine("Do you want to create a new account with this user name?");
-            System.Console.ReadLine();
-        }
             Console.Clear();
-    }
-    else
-    {
 
-
-    }
-
-    Console.WriteLine("logout");
-    string input = Console.ReadLine();
-    switch(input)
-    {
-        case "logout":
-            active_user = null;
+            if (users.TryGetValue(username, out active_user)) // check registration status
+            {
+                System.Console.Write("Password: ");
+                string userPassword = Console.ReadLine() ?? "";
+                if (active_user.TryLogin(userPassword)) // check registered users password
+                {
+                    state = Program_State.LOGGED_IN;  // state update
+                    break;
+                }
+                else
+                {
+                    System.Console.WriteLine("Invalid username and password combination.\nPress \"l\" to retry your credentials. Otherwise press any key to register a new account.");
+                    string userInput = System.Console.ReadLine() ?? "";
+                    Console.Clear();
+                    if (userInput == "l")  // TODO.lowcase
+                    {
+                        state = Program_State.LOGGING_IN;
+                        break;
+                    }
+                    else
+                    {
+                        state = Program_State.REGISTERING_NewUser;
+                        active_user = null;
+                    }
+                }
+            }
+            else
+            {
+                System.Console.WriteLine("Great choice! Let's register that name! Press any key to continue with registration.");
+                state = Program_State.REGISTERING_NewUser;
+            }
+            break;
+        case Program_State.REGISTERING_NewUser:
+            Console.Clear();
+            System.Console.WriteLine($"Welcome Trader!\nPress \"j\" to confirm {username} as your new username. Press any other key to enter a different username.");
+            string selfRegistration = System.Console.ReadLine() ?? "";
+            Console.Clear();
+            if (selfRegistration == "j")
+            {
+                //users.Add*(); TODO register new user to users.csv
+            }
+            else
+            {
+                state = Program_State.LOGGING_IN; // loops back to login in state for new username
+                Console.Clear();
+            }
+            break;
+        case Program_State.LOGGED_IN:
+            System.Console.WriteLine($"Welcome back {username}!"); // string interpolation
+            System.Console.WriteLine("What would you like to do?\nPress \"a\" to add items\nPress \"t\" to see the trade menu\nPress \"h\" to view your history");
+            string selection = Console.ReadLine();
+            break;
+        case Program_State.LOGGING_OUT:
+            Console.WriteLine("logout");
+            string input = Console.ReadLine() ?? ""; // null coalesce
+            switch (input)
+            {
+                case "logout":
+                    active_user = null;
+                    System.Console.WriteLine("logged out");
+                    break;
+                case "login":
+                    active_user = null;
+                    state = Program_State.LOGGING_IN;
+                    System.Console.WriteLine("logging in");
+                    break;
+            }
             break;
     }
+}
+
+// state list, constants
+enum Program_State
+{
+    LOGGING_OUT,
+    LOGGED_OUT,
+    LOGGING_IN,
+    LOGGED_IN,
+    REGISTERING_NewUser,
+    REGISTERING_NewTrade
 }

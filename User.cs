@@ -16,6 +16,10 @@ class User : IUser
         _password = password;
 
     }
+    public bool TryLogin(string password)
+    {
+        return _password == password;
+    }
 
     // retrieve user data from file
     public static Dictionary<string, IUser> importUsersFromFile(string fileName)

@@ -3,13 +3,13 @@ namespace App;
 interface IUser
 {
     
-    /*
-    public bool TryLogin(string username, string password);
+    
+    public bool TryLogin(string password);
 
-    public bool IsRole(Role, role);
+    //public bool IsRole(Role, role);
 
-    public Role GetRole();
-    */
+    //public Role GetRole();
+    
 }
 
 enum Role
