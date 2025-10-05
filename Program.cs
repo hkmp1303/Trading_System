@@ -5,15 +5,16 @@ using System.Runtime.Intrinsics.Arm;
 self registration, by user
 log in
 log out
+
 upload info/description of items
 browse other users items
+
 request trade
 accept trade requests
 deny trade requests
 browse completed requests
 
 TODO state change switch case in main loop
-
 counter offers?
 value metrics?
 multiple items per trade?
@@ -54,29 +55,27 @@ while (running) // Main loop
                 string userPassword = Console.ReadLine() ?? "";
                 if (active_user.TryLogin(userPassword)) // check registered users password
                 {
-                    state = Program_State.LOGGED_IN;  // state update
+                    state = Program_State.LOGGED_IN;  // state update, reflects correct username and password
                     break;
                 }
                 else
                 {
-                    System.Console.WriteLine("Invalid username and password combination.\nPress \"l\" to retry your credentials. Otherwise press any key to register a new account.");
+                    System.Console.WriteLine("Invalid username and password combination.\nPress \"r\" to retry your credentials. Otherwise press any key to register a new account.");
                     string userInput = System.Console.ReadLine() ?? "";
                     Console.Clear();
-                    if (userInput == "l")  // TODO.lowcase
+                    if (userInput.ToLower() == "r")  // comparing user input, ToLower converts user input to lowercase
                     {
-                        state = Program_State.LOGGING_IN;
-                        break;
+                        state = Program_State.LOGGING_IN; // state update, restart login
                     }
                     else
                     {
-                        state = Program_State.REGISTERING_NewUser;
+                        state = Program_State.REGISTERING_NewUser; // state update, register new user
                         active_user = null;
                     }
                 }
             }
             else
             {
-                System.Console.WriteLine("Great choice! Let's register that name! Press any key to continue with registration.");
                 state = Program_State.REGISTERING_NewUser;
             }
             break;
@@ -87,7 +86,10 @@ while (running) // Main loop
             Console.Clear();
             if (selfRegistration == "j")
             {
-                //users.Add*(); TODO register new user to users.csv
+                active_user = new User(username, User.getEmail(), User.getPassword()); // create new active user
+                users.Add(username, active_user); // method call user to users.csv
+                System.Console.WriteLine($"Welcome new Trader {username}! Your accont information is registered. Don't trade it with anyone!");// var userInputToLower = userInput.ToLower()
+                state = Program_State.LOGGED_IN;
             }
             else
             {
