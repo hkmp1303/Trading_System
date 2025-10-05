@@ -1,7 +1,6 @@
 ﻿using App;
 using System.Collections.Generic;
-using System.Runtime.Intrinsics.Arm;
-using Trading_System;
+
 /*
 system requirements:
 [x] self registration by user, log in, log out

@@ -1,4 +1,4 @@
-namespace Trading_System;
+namespace App;
 
 class Item
 {

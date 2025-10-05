@@ -1,5 +1,3 @@
-using Trading_System;
-
 namespace App;
 
 class Trade
@@ -12,13 +10,6 @@ class Trade
     {
         Item = item;
         Status = status;
-        List<Trade> userTrades;
-        if (!tradesByUser.TryGetValue(username, out userTrades))
-        {
-            userTrades = new List<Trade>();
-            tradesByUser.Add(username, userTrades);
-        }
-        userTrades.Add(new Trade(username, item, Trade_State.PENDING_Trade));
     }
 
     public static void tradeMenu(string loggedInUser)
