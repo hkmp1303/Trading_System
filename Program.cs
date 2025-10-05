@@ -1,18 +1,12 @@
 ﻿using App;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
+using Trading_System;
 /*
-self registration, by user
-log in
-log out
-
-upload info/description of items
-browse other users items
-
-request trade
-accept trade requests
-deny trade requests
-browse completed requests
+system requirements:
+[x] self registration by user, log in, log out
+[x] upload info/description of items, browse other users items
+[] request trade, accept trade requests, deny trade requests, browse completed requests
 
 TODO state change switch case in main loop
 counter offers?
@@ -107,6 +101,15 @@ while (running) // Main loop
                 case "logout":
                     state = Program_State.LOGGING_OUT;
                     break;
+                case "a":
+                    Item.itemMenu(username);
+                    break;
+                case "t":
+
+                    break;
+                case "h":
+
+                    break;
             }
             break;
         case Program_State.LOGGING_OUT:
@@ -137,5 +140,6 @@ enum Program_State
     LOGGING_IN,
     LOGGED_IN,
     REGISTERING_NewUser,
-    REGISTERING_NewTrade
+    REGISTERING_NewTrade,
+
 }

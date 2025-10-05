@@ -6,15 +6,15 @@ system requirements:
 - [x] log in
 - [x] log out
 
-- [ ] upload info/description of items
-- [ ] browse other users items
+- [x] upload info/description of items
+- [x] browse other users items
 
 - [ ] request trade
 - [ ] accept trade requests
 - [ ] deny trade requests
 - [ ] browse completed requests
 
-TODO state change switch case in main loop
-counter offers?
-value metrics?
-multiple items per trade?
+# Future feature creepers
+- [ ] counter offers?
+- [ ] value metrics?
+- [ ] multiple items per trade?
