@@ -14,7 +14,6 @@ accept trade requests
 deny trade requests
 browse completed requests
 
-TODO state change switch case in main loop
 counter offers?
 value metrics?
 multiple items per trade?
@@ -88,6 +87,7 @@ while (running) // Main loop
             {
                 active_user = new User(username, User.getEmail(), User.getPassword()); // create new active user
                 users.Add(username, active_user); // method call user to users.csv
+                User.exportUsersToFile(users, "users.csv"); // sending users dictionary to save file
                 System.Console.WriteLine($"Welcome new Trader {username}! Your accont information is registered. Don't trade it with anyone!");// var userInputToLower = userInput.ToLower()
                 state = Program_State.LOGGED_IN;
             }

@@ -24,6 +24,12 @@ class User : IUser // TODO abstract
         return _password == password;
     }
 
+    // retrieve user data line from IUsers
+    public string getUser()
+    {
+        return Username + ':' + Email + ':' + _password; // return users as CSV format
+    }
+
     // returns dictionary collection from file
     public static Dictionary<string, IUser> importUsersFromFile(string fileName)
     {
@@ -44,7 +50,11 @@ class User : IUser // TODO abstract
     public static void exportUsersToFile(Dictionary<string, IUser> dicUsers, string fileName)
     {
         string[] lines = new string[dicUsers.Count]; // initalize new string array
-        // TODO loop through lines
+        int i = 0;
+        foreach (KeyValuePair<string, IUser> item in dicUsers)  // loop through dictionary
+        {
+            lines[i++] = item.Value.getUser();
+        }
         File.WriteAllLines(fileName, lines);
     }
 
