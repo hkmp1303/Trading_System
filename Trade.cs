@@ -1,11 +1,24 @@
+using Trading_System;
+
 namespace App;
 
 class Trade
 {
     public Trade_State Status; // trade status of indiviudal trades
-    public Trade() // trade object constructor
+    public Item Item;
+
+    public static Dictionary<string, List<Trade>> tradesByUser = new Dictionary<string, List<Trade>>();
+    public Trade(string username, Item item, Trade_State status) // trade object constructor
     {
-        // TODO
+        Item = item;
+        Status = status;
+        List<Trade> userTrades;
+        if (!tradesByUser.TryGetValue(username, out userTrades))
+        {
+            userTrades = new List<Trade>();
+            tradesByUser.Add(username, userTrades);
+        }
+        userTrades.Add(new Trade(username, item, Trade_State.PENDING_Trade));
     }
 
     public static void tradeMenu(string loggedInUser)
