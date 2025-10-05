@@ -98,23 +98,32 @@ while (running) // Main loop
             }
             break;
         case Program_State.LOGGED_IN:
-            System.Console.WriteLine($"Welcome back {username}!"); // string interpolation
-            System.Console.WriteLine("What would you like to do?\nPress \"a\" to add items\nPress \"t\" to see the trade menu\nPress \"h\" to view your history");
-            string selection = Console.ReadLine();
-            break;
-        case Program_State.LOGGING_OUT:
-            Console.WriteLine("logout");
-            string input = Console.ReadLine() ?? ""; // null coalesce
-            switch (input)
+            System.Console.WriteLine($"Welcome {username}!"); // string interpolation
+            System.Console.WriteLine("What would you like to do?\nPress \"a\" to add items\nPress \"t\" to see the trade menu\nPress \"h\" to view your history"+
+            "\nType \"logout\" to logout");
+            string selection = Console.ReadLine() ?? "";
+            switch (selection)
             {
                 case "logout":
-                    active_user = null;
-                    System.Console.WriteLine("logged out");
+                    state = Program_State.LOGGING_OUT;
+                    break;
+            }
+            break;
+        case Program_State.LOGGING_OUT:
+            Console.WriteLine("logged out\nType \"login\" to log back in or \"exit\" to leave the program");
+            string input = Console.ReadLine() ?? ""; // null coalesce
+            active_user = null;
+            switch (input)
+            {
+                case "exit":
+                    running = false;
+                    Console.Clear();
+                    System.Console.WriteLine("See you next trade!");
                     break;
                 case "login":
-                    active_user = null;
+                    Console.Clear();
                     state = Program_State.LOGGING_IN;
-                    System.Console.WriteLine("logging in");
+                    System.Console.WriteLine("Logging back in");
                     break;
             }
             break;
@@ -125,7 +134,6 @@ while (running) // Main loop
 enum Program_State
 {
     LOGGING_OUT,
-    LOGGED_OUT,
     LOGGING_IN,
     LOGGED_IN,
     REGISTERING_NewUser,
