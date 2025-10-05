@@ -25,13 +25,13 @@ class Item
                     System.Console.Write("The best item descriptions include the color, size and type!\nItem description: ");
                     string itemDescription = System.Console.ReadLine() ?? "";
                     List<Item> loggedInUserItems;
-                    if (!itemsByUser.TryGetValue(loggedInUser, out loggedInUserItems))
+                    if (!itemsByUser.TryGetValue(loggedInUser, out loggedInUserItems)) // check if user has registered items
                     {
-                        loggedInUserItems = new List<Item>();
-                        itemsByUser.Add(loggedInUser, loggedInUserItems);
+                        loggedInUserItems = new List<Item>(); // creates new list if user does not have register items
+                        itemsByUser.Add(loggedInUser, loggedInUserItems); // adding list to item by user index (ItemsbyUser dictionary)
                     }
-                    loggedInUserItems.Add(new Item(itemName, itemDescription));
-                    System.Console.WriteLine("Do you have more? Type \"y\" to add another item.");
+                    loggedInUserItems.Add(new Item(itemName, itemDescription)); // adding new item to current (logged in) user
+                    System.Console.WriteLine("Do you have more? Type \"y\" to add another item. Otherwise press any key to see the trade inventory.");
                     if ((System.Console.ReadLine() ?? "") != "y")
                     {
                         item_State = Item_State.SHOW_ItemInventory;

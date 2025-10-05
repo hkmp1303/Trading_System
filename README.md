@@ -5,7 +5,6 @@ system requirements:
 - [x] self registration, by user
 - [x] log in
 - [x] log out
-
 - [x] upload info/description of items
 - [x] browse other users items
 
@@ -17,4 +16,7 @@ system requirements:
 # Future feature creepers
 - [ ] counter offers?
 - [ ] value metrics?
-- [ ] multiple items per trade?
+- [ ] multiple items per trade? Collections or sets?
+- [ ] muliple user trades? "three way"
+- [ ] custom column pad function to replace tabs in tables?
+- [ ] logout from everywhere?

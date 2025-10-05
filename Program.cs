@@ -105,10 +105,10 @@ while (running) // Main loop
                     Item.itemMenu(username);
                     break;
                 case "t":
-
+                    Trade.tradeMenu(username);
                     break;
                 case "h":
-
+                    Trade.showHistory(username);
                     break;
             }
             break;
