@@ -38,15 +38,23 @@ class Item
                     }
                     break;
                 case Item_State.SHOW_ItemInventory:
-                    System.Console.WriteLine("Availible items listed below!");
-                    foreach (var Items in itemsByUser)
+                    System.Console.WriteLine("All availible items listed below!");
+                    foreach (var Items in itemsByUser) // loops through all users with items
                     {
-                        foreach (Item i in Items.Value)
+                        foreach (Item i in Items.Value) // loops through current users items, all items
                         {
-                            System.Console.WriteLine(Items.Key+"\t"+i.Name+"\t"+i.Description);
+                            System.Console.WriteLine(Items.Key+"\t"+i.Name+"\t"+i.Description); // printing all items inventory across users
                         }
                     }
-                    System.Console.ReadLine();  // temp stop
+                    System.Console.WriteLine("Type \"a\" to add more items or \"b\" to go back to the previous menu");
+                    switch (System.Console.ReadLine() ?? "")
+                    {
+                        case "a":
+                            item_State = Item_State.REGISTERING_NewItem;
+                            break;
+                        case "b":
+                            return; // returns user to main menu in main loop
+                    }
                     break;
             }
 
