@@ -2,7 +2,7 @@ namespace App;
 
 using System.Net.Mail;
 
-class User : IUser
+class User : IUser // TODO abstract
 {
     // class members
     public string Username;
@@ -16,7 +16,6 @@ class User : IUser
         Username = username;
         Email = email;
         _password = password;
-
     }
 
     // checking supplied password against registered users
