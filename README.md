@@ -1,7 +1,7 @@
 # Trading_System
-A console based program written in C# (.NET 9) where users can trade items. Users self register and login to browse availble items, add their own items to the collective inventory and then start trading. The system was build for learning purposes.
+A console based program written in C# (.NET 9) where users can trade items. The system was built for learning purposes.
 
-system requirements:
+### System requirements:
 - [x] self registration, by user
 - [x] log in
 - [x] log out
@@ -16,30 +16,40 @@ system requirements:
 - [ ] counter offers?
 - [ ] value metrics?
 - [ ] multiple items per trade? Collections or sets?
-- [ ] muliple user trades? "three way"
+- [ ] multiple user trades? "three way"
 - [ ] custom column pad function to replace tabs in tables
 - [ ] logout from anywhere in the program
 
 
-## How to Run
+## 🚀 How to Run
+```
 git clone [git@github.com:hkmp1303/Trading_System.git](https://github.com/hkmp1303/Trading_System.git)
 
 cd Trading_System
 
 dotnet run
+```
+## 🦮 Quick guide
 
-## Design Structure
+Users self register and login to browse available items, add their own items to the collective inventory and then start trading.
 
-A goal of this project was to practice using OOP
+Follow console prompts to enter a username followed by a password for registered users. New users will receive a prompt which begins registration. 
+
+Menus will display key letters for user selection to navigate the program.
+
+
+## 🖌️ Design Structure
+
+A goal of this project was to practice using OOP.
 
 The project implements a state design pattern meaning internal program state changes alter object behavior.
 
-The project benefits from this design patterns naturally dynamic qualities including having multiple states which each have unique behaviors. For example, being logged vs registering or logged out states. The design easily accomodates additional states.
+The project benefits from this design pattern's naturally dynamic qualities including having multiple states which each have unique behaviors. For example, being logged vs registering or logged out states. The design easily accommodates additional states.
 
-## Data
+### Data
 
 The project uses CSV files for persistent data storage between sessions. The CSV file updates when data changes occur.
 
-## Project Structure
+### Project Structure
 
-UML State Machine Diagram to be added upon project completion.
+🚧 UML State Machine Diagram to be added upon project completion.
